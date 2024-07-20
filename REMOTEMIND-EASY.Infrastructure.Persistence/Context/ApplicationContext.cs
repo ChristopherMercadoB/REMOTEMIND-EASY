@@ -32,7 +32,6 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
             return base.SaveChangesAsync(cancellationToken);
         }
 
-        public DbSet<Employees> Employees { get; set; }
         public DbSet<Questions> Questions { get; set; }
         public DbSet<Responses> Responses { get; set; }
 

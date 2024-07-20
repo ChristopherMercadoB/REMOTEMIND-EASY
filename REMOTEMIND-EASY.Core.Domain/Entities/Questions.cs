@@ -2,9 +2,10 @@
 
 namespace REMOTEMIND_EASY.Core.Domain.Entities
 {
-    public class Questions:BaseEntity
+    public class Questions : BaseEntity
     {
         public string Description { get; set; }
-        public List<Responses> Responses { get; set; }
+        public int ResponseId { get; set; }
+        public Responses Response { get; set; }
     }
 }
