@@ -34,10 +34,11 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
 
         public DbSet<Questions> Questions { get; set; }
         public DbSet<Responses> Responses { get; set; }
-
+        public DbSet<UserResponse> UserResponse { get; set; }
         protected override void OnModelCreating(ModelBuilder model)
         {
             #region Tables
+            model.Entity<Questions>().ToTable("");
             #endregion
 
             #region Primary Keys

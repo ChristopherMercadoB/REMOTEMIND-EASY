@@ -19,6 +19,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\REMOTEMIND-EASY.Core.Application\REMOTEMIND-EASY.Core.Application.csproj" />
+    <ProjectReference Include="..\REMOTEMIND-EASY.Core.Domain\REMOTEMIND-EASY.Core.Domain.csproj" />
+    <ProjectReference Include="..\REMOTEMIND-EASY.Infrastructure.Identity\REMOTEMIND-EASY.Infrastructure.Identity.csproj" />
+    <ProjectReference Include="..\REMOTEMIND-EASY.Infrastructure.Persistence\REMOTEMIND-EASY.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\REMOTEMIND-EASY.Infrastructure.Shared\REMOTEMIND-EASY.Infrastructure.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\V1\" />
   </ItemGroup>
 
 </Project>
