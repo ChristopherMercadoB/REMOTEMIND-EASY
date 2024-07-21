@@ -1,10 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using REMOTEMIND_EASY.Core.Application.DTO_S.Authentication;
+using REMOTEMIND_EASY.Core.Application.Features.Account.Command.AuthenticateUser;
+using REMOTEMIND_EASY.Core.Application.Features.Account.Command.RegisterUser;
 
 namespace REMOTEMIN_EASY.Presentation.WebApi.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseApiController
     {
         [HttpPost("Authenticate")]
         public async Task<IActionResult> AuthenticateAsync(AuthenticationRequest request)
@@ -14,6 +16,7 @@ namespace REMOTEMIN_EASY.Presentation.WebApi.Controllers
                 Email = request.Email,
                 Password = request.Password
             }));
+
         }
 
         [HttpPost("Register")]

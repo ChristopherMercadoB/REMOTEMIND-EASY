@@ -7,11 +7,14 @@ namespace REMOTEMIND_EASY.Core.Application
 {
     public static class ServiceExtension
     {
-        public static void AddCoreApplication(IServiceCollection services, IConfiguration configuration)
+        public static void AddCoreApplication(this IServiceCollection services, IConfiguration configuration)
         {
             #region Packages Inyection
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            #endregion
+
+            #region Services
             #endregion
         }
     }

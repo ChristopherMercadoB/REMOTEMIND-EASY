@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using REMOTEMIND_EASY.Core.Application.Interfaces.Repositories;
 using REMOTEMIND_EASY.Infrastructure.Persistence.Context;
+using REMOTEMIND_EASY.Infrastructure.Persistence.Repositories;
 
 
 namespace REMOTEMIND_EASY.Infrastructure.Persistence
@@ -23,6 +25,10 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence
             #endregion
 
             #region Repositories
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IQuestionRepository, QuestionRepository>();
+            services.AddTransient<IResponseRepository, ResponseRepository>();
+            //services.AddTransient<IQuestionRepository, QuestionRepository>();
             #endregion
         }
     }

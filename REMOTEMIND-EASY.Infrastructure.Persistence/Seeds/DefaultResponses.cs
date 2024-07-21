@@ -1,19 +1,26 @@
-﻿using REMOTEMIND_EASY.Core.Application.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using REMOTEMIND_EASY.Core.Domain.Entities;
+using REMOTEMIND_EASY.Infrastructure.Persistence.Context;
 
 namespace REMOTEMIND_EASY.Infrastructure.Persistence.Seeds
 {
     public static class DefaultResponses
     {
-        public static async Task SeeAsync(IResponseRepository res)
+        public static async Task SeeAsync(ApplicationContext context)
         {
-            var response = await res.GetAllAsync();
-            if (response == null || response.Count <= 0)
+            if (!await context.Set<Responses>().AnyAsync())
             {
-                await res.AddAsync(new Core.Domain.Entities.Responses() { Name = "Nunca", Value = 0 });
-                await res.AddAsync(new Core.Domain.Entities.Responses() { Name = "Casi Nunca", Value = 25 });
-                await res.AddAsync(new Core.Domain.Entities.Responses() { Name = "A veces", Value = 50 });
-                await res.AddAsync(new Core.Domain.Entities.Responses() { Name = "A menudo", Value = 75 });
-                await res.AddAsync(new Core.Domain.Entities.Responses() { Name = "Muy A menudo", Value = 100 });
+                await context.Responses.AddRangeAsync(
+                    new Responses() { Name = "Nunca", Value = 0 },
+                    new Responses() { Name = "Casi Nunca", Value = 25 },
+                    new Responses() { Name = "A Veces", Value = 50 },
+                    new Responses() { Name = "A menudo", Value = 75 },
+                    new Responses() { Name = "Muy A Menudo", Value = 100 }
+                    );
+
+                await context.SaveChangesAsync();
+
+
             }
         }
     }

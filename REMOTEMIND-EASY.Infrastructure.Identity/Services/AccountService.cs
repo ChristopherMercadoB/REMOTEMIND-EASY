@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using REMOTEMIND_EASY.Core.Application.DTO_S.Authentication;
 using REMOTEMIND_EASY.Core.Application.Enums;
+using REMOTEMIND_EASY.Core.Application.Interfaces.Services;
 using REMOTEMIND_EASY.Core.Application.Wrappers;
 using REMOTEMIND_EASY.Core.Domain.Settings;
 using REMOTEMIND_EASY.Infrastructure.Identity.Entities;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace REMOTEMIND_EASY.Infrastructure.Identity.Services
 {
-    public class AccountService
+    public class AccountService:IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;

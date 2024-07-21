@@ -38,16 +38,37 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
         protected override void OnModelCreating(ModelBuilder model)
         {
             #region Tables
-            model.Entity<Questions>().ToTable("");
+            model.Entity<Questions>().ToTable("Preguntas");
+            model.Entity<Responses>().ToTable("Respuestas");
+            model.Entity<UserResponse>().ToTable("RespuestaDeUsuario");
             #endregion
 
             #region Primary Keys
+            model.Entity<Questions>().HasKey(e=>e.Id);
+            model.Entity<Responses>().HasKey(e=>e.Id);
+            model.Entity<UserResponse>().HasKey(e => new {e.ResponseId, e.QuestionId});
             #endregion
 
             #region Foreign Keys
             #endregion
 
             #region Properties
+            #region Questions
+            model.Entity<Questions>()
+                .Property(e => e.Title)
+                .IsRequired();
+            #endregion
+
+            #region Responses
+            model.Entity<Responses>()
+                .Property(e => e.Name)
+                .IsRequired();
+
+            model.Entity<Responses>()
+                .Property(e => e.Value)
+                .IsRequired();
+            #endregion
+
             #endregion
         }
     }

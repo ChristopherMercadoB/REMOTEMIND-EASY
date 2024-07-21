@@ -6,10 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using REMOTEMIND_EASY.Core.Application.Interfaces.Services;
 using REMOTEMIND_EASY.Core.Application.Wrappers;
 using REMOTEMIND_EASY.Core.Domain.Settings;
 using REMOTEMIND_EASY.Infrastructure.Identity.Context;
 using REMOTEMIND_EASY.Infrastructure.Identity.Entities;
+using REMOTEMIND_EASY.Infrastructure.Identity.Services;
 using System.Text;
 
 namespace REMOTEMIND_EASY.Infrastructure.Identity
@@ -28,7 +30,7 @@ namespace REMOTEMIND_EASY.Infrastructure.Identity
 
             services.Configure<JWTSetting>(configuration.GetSection("JWTSetting"));
 
-            //services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountService, AccountService>();
 
             services.AddAuthentication(options =>
             {

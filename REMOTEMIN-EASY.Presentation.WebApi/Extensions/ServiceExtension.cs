@@ -20,8 +20,8 @@ namespace REMOTEMIN_EASY.Presentation.WebApi.Extensions
                     Description = "Esta API está hecha con la finalidad de ser utilizada para la app REMOTEMIND-EASY",
                     Contact = new OpenApiContact
                     {
-                        Name = "Tu Nombre",
-                        Email = "tucorreo@gmail.com",
+                        Name = "REMOTEMIND-EASY",
+                        Email = "fernando18@gmail.com",
                     }
                 });
 

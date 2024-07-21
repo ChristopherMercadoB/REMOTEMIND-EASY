@@ -25,8 +25,4 @@
     <ProjectReference Include="..\REMOTEMIND-EASY.Infrastructure.Shared\REMOTEMIND-EASY.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\V1\" />
-  </ItemGroup>
-
 </Project>
