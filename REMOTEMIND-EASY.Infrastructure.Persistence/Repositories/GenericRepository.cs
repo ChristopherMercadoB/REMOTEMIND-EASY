@@ -14,10 +14,12 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
+            return entity;
+
         }
 
         public async Task DeleteAsync(T entity)

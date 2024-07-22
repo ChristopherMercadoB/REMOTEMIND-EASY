@@ -35,21 +35,35 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
         public DbSet<Questions> Questions { get; set; }
         public DbSet<Responses> Responses { get; set; }
         public DbSet<UserResponse> UserResponse { get; set; }
+        public DbSet<Result> Results { get; set; }
         protected override void OnModelCreating(ModelBuilder model)
         {
             #region Tables
             model.Entity<Questions>().ToTable("Preguntas");
             model.Entity<Responses>().ToTable("Respuestas");
             model.Entity<UserResponse>().ToTable("RespuestaDeUsuario");
+            model.Entity<Result>().ToTable("Resultado");
             #endregion
 
             #region Primary Keys
             model.Entity<Questions>().HasKey(e=>e.Id);
             model.Entity<Responses>().HasKey(e=>e.Id);
-            model.Entity<UserResponse>().HasKey(e => new {e.ResponseId, e.QuestionId});
+            model.Entity<UserResponse>().HasKey(e => e.Id);
+            model.Entity<UserResponse>().HasKey(e => e.Id);
             #endregion
 
             #region Foreign Keys
+            model.Entity<Questions>()
+                .HasMany<UserResponse>(u => u.UserResponses)
+                .WithOne(u => u.Question)
+                .HasForeignKey(u=>u.QuestionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            model.Entity<Responses>()
+                .HasMany<UserResponse>(u => u.UserResponses)
+                .WithOne(u => u.Response)
+                .HasForeignKey(u => u.ResponseId)
+                .OnDelete(DeleteBehavior.Restrict);
             #endregion
 
             #region Properties
@@ -68,7 +82,11 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
                 .Property(e => e.Value)
                 .IsRequired();
             #endregion
-
+            #region Result
+            model.Entity<Result>()
+                .Property(e => e.Name)
+                .IsRequired();
+            #endregion
             #endregion
         }
     }

@@ -4,15 +4,17 @@ namespace REMOTEMIND_EASY.Core.Application.Helpers
 {
     public static class CalculateStress
     {
-        public static int Calculate(List<Responses> responses)
+        public static int? Calculate(List<int?> responses)
         {
-            int prom = 0;
-            foreach (Responses response in responses)
+            int? prom = 0;
+            foreach (var item in responses)
             {
-                prom += response.Value;
+                prom += item;
             }
+            
+            var num = prom / responses.Count;
 
-            return prom/responses.Count;
+            return num;
         }
     }
 }

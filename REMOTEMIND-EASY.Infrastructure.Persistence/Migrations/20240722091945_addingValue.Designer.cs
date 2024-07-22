@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using REMOTEMIND_EASY.Infrastructure.Persistence.Context;
 
@@ -11,9 +12,11 @@ using REMOTEMIND_EASY.Infrastructure.Persistence.Context;
 namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240722091945_addingValue")]
+    partial class addingValue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,29 +60,6 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Respuestas", (string)null);
-                });
-
-            modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.Result", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TotalValue")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Resultado", (string)null);
                 });
 
             modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.UserResponse", b =>

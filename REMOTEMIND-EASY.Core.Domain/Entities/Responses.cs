@@ -8,6 +8,6 @@ namespace REMOTEMIND_EASY.Core.Domain.Entities
 
         public string Name { get; set; }
         public int Value { get; set; }
-        public List<Questions> Questions { get; set; }
+        public List<UserResponse> UserResponses { get; set; }
     }
 }

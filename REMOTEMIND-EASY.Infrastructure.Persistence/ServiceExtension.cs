@@ -28,7 +28,8 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<IResponseRepository, ResponseRepository>();
-            //services.AddTransient<IQuestionRepository, QuestionRepository>();
+            services.AddTransient<IUserResponseRepository, UserResponseRepository>();
+            services.AddTransient<IResultRepository, ResultRepository>();
             #endregion
         }
     }

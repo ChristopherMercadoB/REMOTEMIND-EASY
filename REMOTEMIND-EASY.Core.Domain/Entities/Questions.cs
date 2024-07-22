@@ -6,6 +6,6 @@ namespace REMOTEMIND_EASY.Core.Domain.Entities
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public List<Responses> Responses { get; set; }
+        public List<UserResponse> UserResponses { get; set; }
     }
 }

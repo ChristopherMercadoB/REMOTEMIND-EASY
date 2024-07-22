@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace REMOTEMIND_EASY.Infrastructure.Identity.Services
 {
-    public class AccountService:IAccountService
+    public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -163,6 +163,22 @@ namespace REMOTEMIND_EASY.Infrastructure.Identity.Services
                 signingCredentials: signingCredetials);
 
             return jwtSecurityToken;
+        }
+
+        public async Task<bool> IsUserRegistered(string userId = " ", string email = " ")
+        {
+   
+                var registered = await _userManager.FindByEmailAsync(email);
+              
+
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null || registered != null)
+                {
+                    return true;
+                }
+            
+
+            return false;
         }
 
         private RefreshToken GenerateRefreshToken()
