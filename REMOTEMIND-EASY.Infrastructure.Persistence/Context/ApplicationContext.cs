@@ -5,11 +5,11 @@ using REMOTEMIND_EASY.Core.Domain.Entities;
 
 namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
 {
-    public class ApplicationContext:DbContext
+    public class ApplicationContext : DbContext
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> op):base(op)
+        public ApplicationContext(DbContextOptions<ApplicationContext> op) : base(op)
         {
-            
+
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -36,6 +36,8 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
         public DbSet<Responses> Responses { get; set; }
         public DbSet<UserResponse> UserResponse { get; set; }
         public DbSet<Result> Results { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
         protected override void OnModelCreating(ModelBuilder model)
         {
             #region Tables
@@ -43,20 +45,24 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
             model.Entity<Responses>().ToTable("Respuestas");
             model.Entity<UserResponse>().ToTable("RespuestaDeUsuario");
             model.Entity<Result>().ToTable("Resultado");
+            model.Entity<User>().ToTable("Usuario");
+            model.Entity<Role>().ToTable("Rol");
             #endregion
 
             #region Primary Keys
-            model.Entity<Questions>().HasKey(e=>e.Id);
-            model.Entity<Responses>().HasKey(e=>e.Id);
+            model.Entity<Questions>().HasKey(e => e.Id);
+            model.Entity<Responses>().HasKey(e => e.Id);
             model.Entity<UserResponse>().HasKey(e => e.Id);
             model.Entity<UserResponse>().HasKey(e => e.Id);
+            model.Entity<User>().HasKey(e => e.Id);
+            model.Entity<Role>().HasKey(e => e.Id);
             #endregion
 
             #region Foreign Keys
             model.Entity<Questions>()
                 .HasMany<UserResponse>(u => u.UserResponses)
                 .WithOne(u => u.Question)
-                .HasForeignKey(u=>u.QuestionId)
+                .HasForeignKey(u => u.QuestionId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             model.Entity<Responses>()
@@ -64,6 +70,18 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
                 .WithOne(u => u.Response)
                 .HasForeignKey(u => u.ResponseId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            model.Entity<Role>()
+                .HasMany(u => u.Users)
+                .WithOne(u => u.Role)
+                .HasForeignKey(u => u.RoleId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            model.Entity<User>()
+                .HasMany(u => u.Results)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
             #endregion
 
             #region Properties
@@ -86,6 +104,19 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
             model.Entity<Result>()
                 .Property(e => e.Name)
                 .IsRequired();
+            #endregion
+            #region User
+            model.Entity<User>(entity =>
+            {
+                entity.Property(e => e.Name)
+                .IsRequired();
+
+                entity.Property(e => e.Username)
+                .IsRequired();
+
+                entity.Property(e => e.Password)
+                .IsRequired();
+            });
             #endregion
             #endregion
         }

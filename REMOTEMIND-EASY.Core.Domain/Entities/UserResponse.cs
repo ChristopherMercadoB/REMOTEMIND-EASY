@@ -7,7 +7,9 @@
         public Questions Question { get; set; }
         public int ResponseId { get; set; }
         public Responses Response { get; set; }
-        public string? UserId { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public int? Value { get; set; }
+
     }
 }

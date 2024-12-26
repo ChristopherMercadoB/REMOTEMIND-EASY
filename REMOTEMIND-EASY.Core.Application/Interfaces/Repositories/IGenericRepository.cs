@@ -12,6 +12,6 @@ namespace REMOTEMIND_EASY.Core.Application.Interfaces.Repositories
         Task<T> AddAsync(T entity);
         Task<T> GetByIdAsync(int id);
         Task DeleteAsync(T entity);
-        Task UpdateAsync(T entity);
+        Task UpdateAsync(int id, T entity);
     }
 }
