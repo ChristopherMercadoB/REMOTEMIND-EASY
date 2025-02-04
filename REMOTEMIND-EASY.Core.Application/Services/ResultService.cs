@@ -70,7 +70,7 @@ namespace REMOTEMIND_EASY.Core.Application.Services
                 Name = x.Name,
                 TotalValue = x.TotalValue,
                 UserId = x.UserId,
-                Date = DateTime.UtcNow,
+                Date = x.Date,
                 Recomendation = StressLevel.GetStressLevel(x.TotalValue)
             }).OrderByDescending(e=>e.Date).ToList();
         }

@@ -27,10 +27,10 @@
                 <input type="hidden" asp-for="@Model[i].Id" />
 
                 <!-- Respuesta -->
-                <select class="form-select" asp-for="@Model[i].ResponseId" asp-items="@(new SelectList(Model.FirstOrDefault()?.Responses, "Id", "Name"))">
-                    <option >--Seleccione--</option>
+                <select required class="form-select" asp-for="@Model[i].ResponseId" asp-items="@(new SelectList(Model.FirstOrDefault()?.Responses, "Id", "Name"))">
+                    
                 </select>
-                <span asp-validation-for="@Model[i].ResponseId" class="text-danger"></span>
+               
 
             </div>
         }

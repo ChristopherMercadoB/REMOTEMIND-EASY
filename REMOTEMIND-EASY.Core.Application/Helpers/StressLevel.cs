@@ -19,7 +19,7 @@ namespace REMOTEMIND_EASY.Core.Application.Helpers
                 return "Le recomendamos mejorar su distrbucion de tiempo";
             }
 
-            return "Nivel de estres alto, le recomendamos visitar a un psicologo";
+            return "Nivel de estres alto, le recomendamos visitar a un psicologo. Opciones recomendadas:  Celina Ureña Cot\r\n809-967-2233\r\n\r\nJohanny Nova\r\n829-605-1229\r\n\r\nMiosotis Grullón, M.A.\r\n829-605-1229";
         }
     }
 }

@@ -63,24 +63,24 @@ namespace REMOTEMIND_EASY.Presentation.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Questions(List<UserResponseSaveViewModel> vm)
         {
-            if (!ModelState.IsValid)
-            {
-                var questions = await _questionService.GetAll();
+            //if (!ModelState.IsValid)
+            //{
+            //    var questions = await _questionService.GetAll();
 
-               vm = new List<UserResponseSaveViewModel>();
+            //   vm = new List<UserResponseSaveViewModel>();
 
-                foreach (var question in questions)
-                {
-                    vm.Add(new UserResponseSaveViewModel
-                    {
-                        QuestionId = question.Id,
-                        Responses = await _responseService.GetAll()
-                    });
-                }
-                ViewBag.Questions = questions;
+            //    foreach (var question in questions)
+            //    {
+            //        vm.Add(new UserResponseSaveViewModel
+            //        {
+            //            QuestionId = question.Id,
+            //            Responses = await _responseService.GetAll()
+            //        });
+            //    }
+            //    ViewBag.Questions = questions;
 
-                return View(vm);
-            }
+            //    return View(vm);
+            //}
             var user = HttpContext.Session.GetSession<UserViewModel>("user");
             foreach (var item in vm)
             {
