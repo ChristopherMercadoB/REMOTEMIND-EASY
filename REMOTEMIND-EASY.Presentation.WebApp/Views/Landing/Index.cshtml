@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="hero-section">
+    <div class="container">
+        <h1 class="display-4">Bienvenido a REMOTEMIND-EASY</h1>
+        <p class="lead">La herramienta definitiva para monitorear y mejorar el bienestar de los trabajadores remotos.</p>
+        <a href="#features" class="btn btn-light btn-lg">Descubre Más</a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5">
+    <div class="container">
+        <div class="row text-center">
+            <h2 class="mb-4">¿Por qué elegir REMOTEMIND-EASY?</h2>
+            <div class="col-md-4">
+                <div class="card feature-card p-4">
+                    <img src="https://www.philips.es/c-dam/b2bhc/master/feature-details/pm-deepdive/pm-group-page/pm-video-thumb.JPG" class="card-img-top mx-auto" alt="Monitorización en Tiempo Real">
+                    <div class="card-body">
+                        <h5 class="card-title">Monitorización en Tiempo Real</h5>
+                        <p class="card-text">Obtén datos en vivo sobre el nivel de estrés de tus colaboradores.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card feature-card p-4">
+                    <img src="https://www.neolo.com/blog/wp-content/uploads/2016/02/Sobre-el-an%C3%A1lisis-de-datos-para-personalizar-cada-experiencia-de-cliente.jpg" class="card-img-top mx-auto" alt="Análisis Personalizado">
+                    <div class="card-body">
+                        <h5 class="card-title">Análisis Personalizado</h5>
+                        <p class="card-text">Recibe informes adaptados para mejorar la productividad y bienestar.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card feature-card p-4">
+                    <img src="https://via.placeholder.com/100" class="card-img-top mx-auto" alt="Integración Sencilla">
+                    <div class="card-body">
+                        <h5 class="card-title">Integración Sencilla</h5>
+                        <p class="card-text">Compatible con las principales plataformas de trabajo remoto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h3 class="mb-3">Empieza a Cuidar a Tu Equipo Hoy</h3>
+        <p class="lead">Regístrate ahora y obtén un mes de prueba gratis para descubrir todo lo que Stress Tracker puede hacer por tu equipo.</p>
+        <a asp-controller="User" asp-action="Login" class="btn btn-primary">Iniciar Sesion</a>
+        <a asp-controller="User" asp-action="Register" class="btn btn-primary">Regístrate Gratis</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2024 REMOTEMIND-EASY | Diseñado con <span class="text-danger">&hearts;</span> para equipos remotos</p>
+</footer>
+

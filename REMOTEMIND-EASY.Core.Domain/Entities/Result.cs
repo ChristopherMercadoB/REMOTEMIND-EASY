@@ -8,6 +8,9 @@ namespace REMOTEMIND_EASY.Core.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public int TotalValue { get; set; }
-        public string? UserId { get; set; }
+        public int UserId { get; set; }
+        public int? EnterpriseId { get; set; }
+        public DateTime Date { get; set; }
+        public User User { get; set; }
     }
 }

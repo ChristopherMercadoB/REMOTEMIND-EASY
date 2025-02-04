@@ -12,14 +12,14 @@ namespace REMOTEMIND_EASY.Core.Application.Helpers
         {
             if (prom <= 33)
             {
-                return "Nivel de estres bajo";
+                return "Su nivel de estres es estable";
             }
             else if (prom > 33 && prom < 66)
             {
-                return "Nivel de estre medio";
+                return "Le recomendamos mejorar su distrbucion de tiempo";
             }
 
-            return "Nivel de estres alto";
+            return "Nivel de estres alto, le recomendamos visitar a un psicologo";
         }
     }
 }

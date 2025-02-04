@@ -6,7 +6,7 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Seeds
 {
     public static class DefaultQuestions
     {
-        public static async Task SeeAsync(ApplicationContext context)
+        public static async Task SeedAsync(ApplicationContext context)
         {
             if (!await context.Set<Questions>().AnyAsync())
             {

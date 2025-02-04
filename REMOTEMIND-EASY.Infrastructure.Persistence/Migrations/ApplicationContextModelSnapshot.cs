@@ -22,6 +22,37 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EnterpriseId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Sentiment")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Comentarios", (string)null);
+                });
+
             modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.Questions", b =>
                 {
                     b.Property<int>("Id")
@@ -67,6 +98,12 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EnterpriseId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -74,12 +111,71 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
                     b.Property<int>("TotalValue")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Resultado", (string)null);
+                });
+
+            modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Resultado", (string)null);
+                    b.ToTable("Rol", (string)null);
+                });
+
+            modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("EnterpriseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TestDone")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Usuario", (string)null);
                 });
 
             modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.UserResponse", b =>
@@ -96,8 +192,8 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
                     b.Property<int>("ResponseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Value")
                         .HasColumnType("int");
@@ -108,7 +204,42 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("ResponseId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("RespuestaDeUsuario", (string)null);
+                });
+
+            modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.Comment", b =>
+                {
+                    b.HasOne("REMOTEMIND_EASY.Core.Domain.Entities.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.Result", b =>
+                {
+                    b.HasOne("REMOTEMIND_EASY.Core.Domain.Entities.User", "User")
+                        .WithMany("Results")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.User", b =>
+                {
+                    b.HasOne("REMOTEMIND_EASY.Core.Domain.Entities.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.UserResponse", b =>
@@ -125,9 +256,17 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("REMOTEMIND_EASY.Core.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Question");
 
                     b.Navigation("Response");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.Questions", b =>
@@ -138,6 +277,18 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.Responses", b =>
                 {
                     b.Navigation("UserResponses");
+                });
+
+            modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.Role", b =>
+                {
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("REMOTEMIND_EASY.Core.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Results");
                 });
 #pragma warning restore 612, 618
         }

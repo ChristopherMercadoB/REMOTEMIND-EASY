@@ -1,0 +1,87 @@
+﻿﻿
+@using REMOTEMIND_EASY.Core.Application.ViewModels.User;
+@using Microsoft.AspNetCore.Http;
+@using REMOTEMIND_EASY.Core.Application.Helpers;
+@inject IHttpContextAccessor accessor;
+@{
+    UserViewModel user = accessor.HttpContext.Session.GetSession<UserViewModel>
+    ("user");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GestorPaciente.WebApp.Sistema</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/GestorPaciente.WebApp.Sistema.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row vh-100">
+            <div class="container-fluid display-table">
+                <div class="row display-table-row">
+                    @if (user != null)
+                    {
+                        <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+                            <div class="navi">
+                                <ul>
+                                    <li class="active"><a asp-controller="Home" asp-action="Index"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
+
+                                    @if (user.RoleId == 1)
+                                    {
+                                        <li><a asp-controller="User" asp-action="List"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Usuarios</span></a></li>
+                                        <li>
+                                            <a asp-controller="Comment" asp-action="Index">
+                                                <i class="fa fa-comment" aria-hidden="true"></i>
+                                                <span class="hidden-xs hidden-sm">Comentarios</span>
+                                            </a>
+                                        </li>
+
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-controller="UserResponse" asp-action="Index"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Realizar Test</span></a></li>
+                                        <li><a asp-controller="Result" asp-action="List"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Ver Tests</span></a></li>
+                                        <li>
+                                            <a asp-controller="Comment" asp-action="Create">
+                                                <i class="fa fa-comment" aria-hidden="true"></i>
+
+                                                <span class="hidden-xs hidden-sm">Comentar</span>
+                                            </a>
+                                        </li>
+                                    }
+                                    <li>
+                                        <a asp-controller="User" asp-action="Logout">
+                                            <i class="fas fa-sign-out-alt"></i>
+
+                                            <span class="hidden-xs hidden-sm">Salir</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+
+
+                    <main role="main" class="col-md-9  col-lg-10 px-md-5 w-100">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

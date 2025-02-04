@@ -38,9 +38,11 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Repositories
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public Task UpdateAsync(T entity)
+        public async Task UpdateAsync(int id, T entity)
         {
-            throw new NotImplementedException();
+            var entry = await GetByIdAsync(id);
+            _context.Entry(entry).CurrentValues.SetValues(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

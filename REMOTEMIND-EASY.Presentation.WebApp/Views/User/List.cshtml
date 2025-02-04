@@ -1,0 +1,51 @@
+﻿﻿@using REMOTEMIND_EASY.Core.Application.ViewModels.User;
+@model List<UserViewModel>
+@{
+    ViewData["Title"] = "Mant. Usuarios";
+}
+
+<div class="text-center mt-3">
+    <h3>Listado de Usuarios</h3>
+</div>
+
+<div class="mg-3">
+    <div>
+        <a class="btn btn-outline-success mb-5 col-lg-6 offset-3" asp-controller="User" asp-action="Register">Agregar Usuario</a>
+    </div>
+</div>
+
+<table class="table">
+    <thead class="bg-all text-white">
+        <tr>
+            <th scope="col">Nombre</th>
+            @* <th scope="col">Apellido</th> *@
+            <th scope="col">Nombre de usuario</th>
+        @*     <th scope="col">Email</th>
+            <th scope="col">Rol</th> *@
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || Model.Count == 0)
+        {
+            <div class="col">
+                <h1>No hay ningún elemento en la base de datos</h1>
+            </div>
+        }
+        else
+        {
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">@item.Name</td>
+                    <td>@item.Username</td>
+                    @* <th>@item.RoleName</th> *@
+                    <td><a asp-controller="Result" asp-action="List" asp-route-id=@item.Id class="btn btn-info">Ver</a></td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
