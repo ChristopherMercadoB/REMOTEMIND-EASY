@@ -10,6 +10,6 @@ namespace REMOTEMIND_EASY.Core.Application.Interfaces.Services
 {
     public interface IUserResponseService:IGenericService<UserResponseViewModel, UserResponseSaveViewModel, UserResponse>
     {
-        Task CreateMany(List<UserResponseSaveViewModel> vm);
+        Task<int> CreateMany(List<UserResponseSaveViewModel> vm);
     }
 }

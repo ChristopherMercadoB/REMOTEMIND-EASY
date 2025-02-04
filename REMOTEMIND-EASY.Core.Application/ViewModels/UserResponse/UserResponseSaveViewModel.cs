@@ -16,6 +16,7 @@ namespace REMOTEMIND_EASY.Core.Application.ViewModels.UserResponse
         [Required(ErrorMessage = "Favor llenar este campo")]
         public int ResponseId { get; set; }
         public int UserId { get; set; }
+        public int TestId { get; set; }
         public List<ResponseViewModel> Responses { get; set; }
     }
 }

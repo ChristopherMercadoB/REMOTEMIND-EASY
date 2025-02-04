@@ -24,12 +24,13 @@ namespace REMOTEMIND_EASY.Core.Application.Services
             _userRepo = userRepo;
         }
 
-        public async Task CreateResult(int userId)
+        public async Task CreateResult(int userId, int testId)
         {
             var user = await _userRepo.GetByIdAsync(userId);
             var tests = await this.GetResultByUser(userId);
             List<int?> values = new List<int?>();
             var result = await _userResponseRepository.GetAllInclude(new List<string> { "Response" });
+            result = result.Where(e=>e.UserId == userId && e.TestId == testId).ToList();
             if (!result.Any())
             {
                 throw new ApiException("No hay registros");

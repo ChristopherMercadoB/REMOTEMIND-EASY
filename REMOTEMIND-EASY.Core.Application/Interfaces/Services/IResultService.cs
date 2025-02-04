@@ -12,7 +12,7 @@ namespace REMOTEMIND_EASY.Core.Application.Interfaces.Services
 {
     public interface IResultService : IGenericService<ResultViewModel, ResultSaveViewModel, Result>
     {
-        Task CreateResult(int userId);
+        Task CreateResult(int userId, int testId);
         Task<List<ResultViewModel>> GetResultByUser(int userId);
     }
 }

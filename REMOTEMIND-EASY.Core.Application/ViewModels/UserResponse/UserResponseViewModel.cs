@@ -9,6 +9,6 @@ namespace REMOTEMIND_EASY.Core.Application.ViewModels.UserResponse
     public class UserResponseViewModel
     {
         public int Id { get; set; }
-        public int MyProperty { get; set; }
+        public int TestId { get; set; }
     }
 }

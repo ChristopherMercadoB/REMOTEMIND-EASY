@@ -22,10 +22,24 @@ namespace REMOTEMIND_EASY.Core.Application.Services
             _mapper = mapper;
         }
 
-        public async Task CreateMany(List<UserResponseSaveViewModel> vm)
+        public async Task<int> CreateMany(List<UserResponseSaveViewModel> vm)
         {
+            Random ran = new Random();
+        Random:
+            var number = ran.Next(1, vm.Count + 1);
+            var many = await this.GetAll();
+            var sameId = many.FirstOrDefault(e => e.TestId == number);
+            if (sameId != null)
+            {
+                goto Random;
+            }
+            foreach (var item in vm)
+            {
+                item.TestId = number;
+            }
             var entities = _mapper.Map<List<UserResponse>>(vm);
             await _repository.AddMany(entities);
+            return number;
         }
     }
 }
