@@ -12,7 +12,7 @@ namespace REMOTEMIND_EASY.Core.Application.Helpers
                 prom += item;
             }
             
-            var num = prom / responses.Count;
+            var num = prom / 7;
 
             return num;
         }

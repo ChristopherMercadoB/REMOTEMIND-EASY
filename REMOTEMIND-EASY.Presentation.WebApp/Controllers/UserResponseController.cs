@@ -86,8 +86,8 @@ namespace REMOTEMIND_EASY.Presentation.WebApp.Controllers
             {
                 item.UserId = user.Id;
             }
-            await _service.CreateMany(vm);
-            await _resultService.CreateResult(user.Id);
+            var testId = await _service.CreateMany(vm);
+            await _resultService.CreateResult(user.Id, testId);
             return RedirectToRoute(new { controller = "Home", action = "Index" });
         }
 
