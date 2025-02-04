@@ -12,8 +12,8 @@ using REMOTEMIND_EASY.Infrastructure.Persistence.Context;
 namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241124053315_initial")]
-    partial class initial
+    [Migration("20250131120025_eid")]
+    partial class eid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,6 +70,9 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -116,12 +119,8 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("EnterpriseId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -134,15 +133,8 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("TestDone")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("TestDone")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()

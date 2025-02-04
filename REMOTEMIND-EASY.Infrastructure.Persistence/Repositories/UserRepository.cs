@@ -30,7 +30,7 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Repositories
         public async Task<User> LoginAsync(LoginViewModel vm)
         {
             vm.Password = PasswordEncryption.HashPassword(vm.Password);
-            var user =  await _context.Set<User>().FirstOrDefaultAsync(p => p.Password == vm.Password);
+            var user =  await _context.Set<User>().FirstOrDefaultAsync(p =>p.Username == vm.Username && p.Password == vm.Password);
             return user;
         }
     }

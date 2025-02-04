@@ -47,6 +47,7 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
             model.Entity<Result>().ToTable("Resultado");
             model.Entity<User>().ToTable("Usuario");
             model.Entity<Role>().ToTable("Rol");
+            model.Entity<Comment>().ToTable("Comentarios");
             #endregion
 
             #region Primary Keys
@@ -56,6 +57,7 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
             model.Entity<UserResponse>().HasKey(e => e.Id);
             model.Entity<User>().HasKey(e => e.Id);
             model.Entity<Role>().HasKey(e => e.Id);
+            model.Entity<Comment>().HasKey(e => e.Id);
             #endregion
 
             #region Foreign Keys
@@ -81,6 +83,12 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
                 .HasMany(u => u.Results)
                 .WithOne(u => u.User)
                 .HasForeignKey(u => u.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            model.Entity<User>()
+                .HasMany(u=>u.Comments)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.EmployeeId)
                 .OnDelete(DeleteBehavior.NoAction);
             #endregion
 
@@ -116,6 +124,8 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Context
 
                 entity.Property(e => e.Password)
                 .IsRequired();
+
+              
             });
             #endregion
             #endregion

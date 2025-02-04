@@ -13,17 +13,21 @@ namespace REMOTEMIND_EASY.Core.Application.Services
     {
         private readonly IResultRepository _repository;
         private readonly IUserResponseRepository _userResponseRepository;
+        private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
 
-        public ResultService(IResultRepository repository, IMapper mapper, IUserResponseRepository userResponseRepository):base(mapper, repository)
+        public ResultService(IResultRepository repository, IMapper mapper, IUserResponseRepository userResponseRepository, IUserRepository userRepo) : base(mapper, repository)
         {
             _repository = repository;
             _mapper = mapper;
             _userResponseRepository = userResponseRepository;
+            _userRepo = userRepo;
         }
 
         public async Task CreateResult(int userId)
         {
+            var user = await _userRepo.GetByIdAsync(userId);
+            var tests = await this.GetResultByUser(userId);
             List<int?> values = new List<int?>();
             var result = await _userResponseRepository.GetAllInclude(new List<string> { "Response" });
             if (!result.Any())
@@ -50,7 +54,9 @@ namespace REMOTEMIND_EASY.Core.Application.Services
             var create = await _repository.AddAsync(new Result()
             {
                 UserId = userId,
-                Name = "Test",
+                EnterpriseId = user.EnterpriseId,
+                Date = DateTime.UtcNow,
+                Name = "Test " + tests.Count,
                 TotalValue = (int)total
             });
         }
@@ -64,8 +70,9 @@ namespace REMOTEMIND_EASY.Core.Application.Services
                 Name = x.Name,
                 TotalValue = x.TotalValue,
                 UserId = x.UserId,
+                Date = DateTime.UtcNow,
                 Recomendation = StressLevel.GetStressLevel(x.TotalValue)
-            }).ToList();
+            }).OrderByDescending(e=>e.Date).ToList();
         }
     }
 }

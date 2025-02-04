@@ -7,5 +7,7 @@
         public int TotalValue { get; set; }
         public int UserId { get; set; }
         public string Recomendation { get; set; }
+        public int? EnterpriseId { get; set; }
+        public DateTime Date { get; set; }
     }
 }

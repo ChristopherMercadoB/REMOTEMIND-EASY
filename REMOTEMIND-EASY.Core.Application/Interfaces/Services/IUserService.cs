@@ -11,6 +11,8 @@ namespace REMOTEMIND_EASY.Core.Application.Interfaces.Services
     public interface IUserService:IGenericService<UserViewModel, UserSaveViewModel, User>
     {
         Task<UserViewModel> Login(LoginViewModel vm);
-        Task Rgister(UserSaveViewModel vm);
+        Task<UserSaveViewModel> Rgister(UserSaveViewModel vm);
+
+        Task<List<UserViewModel>> GetAllByEnterprise(int id);
     }
 }

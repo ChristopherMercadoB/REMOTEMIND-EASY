@@ -23,6 +23,19 @@ namespace REMOTEMIND_EASY.Core.Application.Services
             _repository = repository;
         }
 
+        public async Task<List<UserViewModel>> GetAllByEnterprise(int id)
+        {
+            var users = await _repository.GetAllAsync();
+            return users.Where(e => e.EnterpriseId == id).Select(x => new UserViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Username = x.Username,
+                RoleId = x.RoleId,
+
+            }).ToList();
+        }
+
         public async Task<UserViewModel> Login(LoginViewModel vm)
         {
             var user = await _repository.LoginAsync(vm);
@@ -30,11 +43,22 @@ namespace REMOTEMIND_EASY.Core.Application.Services
             return userViewModel;
         }
 
-        public async Task Rgister(UserSaveViewModel vm)
+        public async Task<UserSaveViewModel> Rgister(UserSaveViewModel vm)
         {
+            var allUsers = await _repository.GetAllAsync();
+            var userWithSameUsername = allUsers.FirstOrDefault(e=>e.Username == vm.Username);
+            if (userWithSameUsername != null) 
+            { 
+                vm.HasError = true;
+                vm.Error = $"El nombre de usuario '{vm.Username}' ya esta siendo usado";
+                return vm;
+            }
+
+
             var user = _mapper.Map<User>(vm);
             user.Password = PasswordEncryption.HashPassword(vm.Password);
             await _repository.AddAsync(user);
+            return vm;
         }
     }
 }

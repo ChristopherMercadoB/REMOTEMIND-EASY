@@ -1,37 +1,40 @@
 ﻿﻿@using REMOTEMIND_EASY.Core.Application.ViewModels.User;
+@using Microsoft.AspNetCore.Http;
+@using REMOTEMIND_EASY.Core.Application.Helpers;
+@inject IHttpContextAccessor accessor;
 @model UserSaveViewModel;
 
 @{
-    bool editMode;
-    if (Model != null)
-    {
-        editMode = Model.Id == 0 ? false : true;
-    }
-    else
-    {
-        editMode = false;
-    }
+    var user = accessor.HttpContext.Session.GetSession<UserViewModel>("user");
+
 
     ViewData["Title"] = "Usuario";
 }
 
 <!-- Section: Design Block -->
 <!-- Jumbotron -->
+@if(user != null){
+
+}
 <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
     <div class="container">
+       
         <div class="row gx-lg-5 align-items-center">
-            <div class="col-lg-6 mb-5 mb-lg-0">
-                <h1 class="my-5 display-3 fw-bold ls-tight">
-                    REMOTEMIND <br />
-                    <span class="text-primary">EASY</span>
-                </h1>
-                <p style="color: hsl(217, 10%, 50.8%)">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-                    quibusdam tempora at cupiditate quis eum maiores libero
-                    veritatis? Dicta facilis sint aliquid ipsum atque?
-                </p>
-            </div>
+            @if (user == null)
+            {
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h1 class="my-5 display-3 fw-bold ls-tight">
+                        REMOTEMIND <br />
+                        <span class="text-primary">EASY</span>
+                    </h1>
+                    <p style="color: hsl(217, 10%, 50.8%)">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+                        quibusdam tempora at cupiditate quis eum maiores libero
+                        veritatis? Dicta facilis sint aliquid ipsum atque?
+                    </p>
+                </div>
+            }
 
             <div class="col-lg-6 mb-5 mb-lg-0">
                 <div class="card">
@@ -47,10 +50,12 @@
                             <h6 class="mb-5 display-5 fw-bold ls-tight">
                                 Rgistrarse
                             </h6>
-                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-                            ;
+                            @* @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            ; *@
 
-                            <form method="post" asp-controller="User" asp-action="@(editMode ? "Update":"Register")">
+                            <span class="text-danger">@(Model.HasError ? Model.Error : "")</span>
+
+                            <form method="post" asp-controller="User" asp-action="@("Register")">
                                 <!-- 2 column grid layout with text inputs for the first and last names -->
                                 <div class="row">
 
@@ -85,10 +90,29 @@
                                         <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
                                     </div>
 
+                                    @if(user != null)
+                                    {
+                                        <input type="hidden" class="form-control"  asp-for="EnterpriseId" value="@user.Id"/>
+                                    }
+                                    
                                     <div class="form-outline mb-4">
-                                        <select class="form-select" asp-for="RoleId" asp-items="@(new SelectList(Model.Roles, "Id", "Name"))">
-                                            <option value="">--Seleccione--</option>
-                                        </select>
+                                        @if (user != null)
+                                        {
+                                            <select class="form-select " asp-for="RoleId">
+                                                <option value="">--Seleccione--</option>
+                                                <option value="2">Employee</option>
+                                            </select>
+                                        <span class="text-danger" asp-validation-for="Username"></span>
+
+                                        }else{
+                                            <select class="form-select" asp-for="RoleId">
+                                                <option value="">--Seleccione--</option>
+                                                <option value="1">Enterprise</option>
+                                            </select>
+                                            <span class="text-danger" asp-validation-for="Username"></span>
+
+                                        }
+                                       
                                         <label class="form-label" asp-for="RoleId">Role</label>
                                     </div>
 
@@ -100,7 +124,6 @@
                             </form>
                         }
 
-                        <a class="col-lg-6 offset-2" asp-controller="User" asp-action="Register">Aun no tienes cuenta? Registrate aqui</a>
 
                     </div>
 

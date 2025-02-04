@@ -6,6 +6,7 @@ using REMOTEMIND_EASY.Core.Application.DTO_S.UserResponse;
 using REMOTEMIND_EASY.Core.Application.Features.UserResponses.Command;
 using REMOTEMIND_EASY.Core.Application.ViewModels.Question;
 using REMOTEMIND_EASY.Core.Application.ViewModels.Response;
+using REMOTEMIND_EASY.Core.Application.ViewModels.Result;
 using REMOTEMIND_EASY.Core.Application.ViewModels.Role;
 using REMOTEMIND_EASY.Core.Application.ViewModels.User;
 using REMOTEMIND_EASY.Core.Application.ViewModels.UserResponse;
@@ -47,7 +48,12 @@ namespace REMOTEMIND_EASY.Core.Application.Mapping
             #region Result
             CreateMap<ResultDTO, Result>()
                 .ReverseMap();
+
+            CreateMap<Result, ResultViewModel>()
+                .ReverseMap();
             #endregion
+
+            
 
             #region UserResponse
             CreateMap<UserResponse, UserResponseDTO>()
@@ -65,7 +71,9 @@ namespace REMOTEMIND_EASY.Core.Application.Mapping
                .ReverseMap();
 
             CreateMap<User, UserViewModel>()
-               .ReverseMap();
+               .ReverseMap()
+               .ForMember(dest=>dest.Role, obj=>obj.Ignore())
+               .ForMember(dest => dest.Role, obj => obj.Ignore());
             #endregion
 
             #region Role

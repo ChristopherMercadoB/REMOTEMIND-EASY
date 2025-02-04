@@ -24,6 +24,7 @@ namespace REMOTEMIND_EASY.Core.Application
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IResultService, ResultService>();
+            services.AddTransient<ICommentService, CommentService>();
             #endregion
         }
     }

@@ -8,13 +8,8 @@ namespace REMOTEMIND_EASY.Core.Application.ViewModels.User
     public class UserSaveViewModel
     {
        
-        public int Id { get; set; }
-        [Required(ErrorMessage = "Este campo es requerido")]
-
         public string Name { get; set; }
-        [Required(ErrorMessage = "Este campo es requerido")]
-
-        public string LastName { get; set; }
+    
 
         [Required(ErrorMessage = "Este campo es requerido")]
 
@@ -29,6 +24,11 @@ namespace REMOTEMIND_EASY.Core.Application.ViewModels.User
         [Required(ErrorMessage = "Este campo es requerido")]
 
         public int RoleId { get; set; }
+        public int? EnterpriseId { get; set; }
+
+        public bool HasError { get; set; } = false;
+        public string? Error { get; set; }
+
         [NotMapped]
         public List<RoleViewModel>? Roles { get; set; }
 

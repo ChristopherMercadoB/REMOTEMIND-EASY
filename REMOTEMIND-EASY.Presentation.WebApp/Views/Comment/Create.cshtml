@@ -1,0 +1,46 @@
+﻿@using REMOTEMIND_EASY.Core.Application.ViewModels.Comment
+@model CommentSaveViewModel;
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+
+                    <h3 class="card-title text-center bg-all text-white">Comentar</h3>
+                    <form asp-controller="Comment" asp-action="Create">
+                        <!-- Campo de Nombre -->
+                       
+
+                        <!-- Campo de Comentario -->
+                        <div class="form-group">
+                            <label for="comentario">Comentario</label>
+                            <textarea asp-for="Text" class="form-control" rows="4" placeholder="Escribe tu comentario..." required></textarea>
+                            <span asp-validation-for="Text" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                           <input type="hidden" asp-for="EnterpriseId"/>
+                        </div>
+                        <div class="form-group">
+                           <input type="hidden" asp-for="EmployeeId"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" asp-for="Sentiment" />
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" asp-for="Date" />
+                        </div>
+                        <!-- Botón para Enviar Comentario -->
+                        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                        <button type="submit" class="btn btn-danger btn-block">volver</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -3,6 +3,7 @@ using REMOTEMIND_EASY.Infrastructure.Persistence;
 using REMOTEMIND_EASY.Infrastructure.Identity;
 using REMOTEMIND_EASY.Infrastructure.Persistence.Context;
 using REMOTEMIND_EASY.Infrastructure.Persistence.Seeds;
+using REMOTEMIND_EASY.Infrastructure.MachineLearning;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddInfrastructurePersistence(builder.Configuration);
 builder.Services.AddCoreApplication(builder.Configuration);
 builder.Services.AddInfrastructureIdentity(builder.Configuration);
+builder.Services.AddInfrastructureMachineLearning(builder.Configuration);
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSession();
 
@@ -51,6 +53,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Landing}/{action=Index}/{id?}");
+    pattern: "{controller=User}/{action=Login}/{id?}");
 
 app.Run();

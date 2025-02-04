@@ -15,7 +15,7 @@
 </div>
 
 <table class="table">
-    <thead class="thead-dark">
+    <thead class="bg-all text-white">
         <tr>
             <th scope="col">Nombre</th>
             @* <th scope="col">Apellido</th> *@
@@ -42,8 +42,7 @@
                     <td scope="row">@item.Name</td>
                     <td>@item.Username</td>
                     @* <th>@item.RoleName</th> *@
-                    <td><a asp-controller="User" asp-action="Detail" asp-route-id=@item.Id class="btn btn-outline-info">Ver</a></td>
-                    <td><a asp-controller="User" asp-action="Delete" asp-route-id=@item.Id class="btn btn-outline-info">Eliminar</a></td>
+                    <td><a asp-controller="Result" asp-action="List" asp-route-id=@item.Id class="btn btn-info">Ver</a></td>
                 </tr>
             }
 

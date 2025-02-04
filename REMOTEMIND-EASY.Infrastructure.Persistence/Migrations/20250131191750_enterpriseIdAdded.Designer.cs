@@ -12,8 +12,8 @@ using REMOTEMIND_EASY.Infrastructure.Persistence.Context;
 namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241124060713_withoutBaseEntity")]
-    partial class withoutBaseEntity
+    [Migration("20250131191750_enterpriseIdAdded")]
+    partial class enterpriseIdAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,6 +70,12 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EnterpriseId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -116,6 +122,9 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("EnterpriseId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -127,8 +136,8 @@ namespace REMOTEMIND_EASY.Infrastructure.Persistence.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("TestDone")
-                        .HasColumnType("bit");
+                    b.Property<int>("TestDone")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()

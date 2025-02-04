@@ -16,7 +16,7 @@ namespace REMOTEMIND_EASY.Core.Application.Helpers
             }
             else if (prom > 33 && prom < 66)
             {
-                return "Le recomendamos mejorar su distrbucion";
+                return "Le recomendamos mejorar su distrbucion de tiempo";
             }
 
             return "Nivel de estres alto, le recomendamos visitar a un psicologo";

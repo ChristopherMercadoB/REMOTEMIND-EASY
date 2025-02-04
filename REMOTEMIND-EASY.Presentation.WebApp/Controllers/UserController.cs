@@ -8,15 +8,14 @@ namespace REMOTEMIND_EASY.Presentation.WebApp.Controllers
 {
     public class UserController : Controller
     {
-
+        private readonly UserViewModel _vm;
         private readonly IUserService _userService;
-        private readonly IUserRepository _repo;
         private readonly IRoleService _roleService;
 
-        public UserController(IUserService userService, IUserRepository repo, IRoleService roleRepo)
+        public UserController(IHttpContextAccessor accessor, IUserService userService, IRoleService roleRepo)
         {
+            _vm = accessor.HttpContext.Session.GetSession<UserViewModel>("user");
             _userService = userService;
-            _repo = repo;
             _roleService = roleRepo;
         }
 
@@ -29,13 +28,26 @@ namespace REMOTEMIND_EASY.Presentation.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
+            if (_vm != null)
+            {
+                return RedirectToRoute(new { controller = "User", action = "Login" });
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
             var user = await _userService.Login(vm);
             if (user != null)
             {
                  HttpContext.Session.SetSession<UserViewModel>("user", user);
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
-            return View();
+            else
+            {
+                vm.HasError = true;
+                vm.Error = "Usuario o contrase;a incorrectos";
+                return View(vm);
+            }
         }
 
         public async Task<IActionResult> Register()
@@ -48,9 +60,33 @@ namespace REMOTEMIND_EASY.Presentation.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(UserSaveViewModel vm)
         {
-
-            await _userService.Rgister(vm);
-            return RedirectToRoute(new {controller="User", action="Login"});
+            if (!ModelState.IsValid)
+            {
+                vm.Roles = await _roleService.GetAll();
+                return View(vm);
+            }
+            if (_vm != null)
+            {
+                if (_vm.RoleId == 1)
+                {
+                    vm.EnterpriseId = _vm.Id;
+                }
+            }
+            
+            var result = await _userService.Rgister(vm);
+            if (result.HasError)
+            {
+                vm.Roles = await _roleService.GetAll();
+                return View(vm);
+            }
+            if (_vm == null)
+            {
+                return RedirectToRoute(new { controller = "User", action = "Login" });
+            }
+            else
+            {
+                return RedirectToRoute(new { controller = "User", action = "List" });
+            }
         }
 
 
@@ -67,9 +103,17 @@ namespace REMOTEMIND_EASY.Presentation.WebApp.Controllers
 
         public async Task<IActionResult> List()
         {
-            var employee = await _repo.GetAllNotAdmin();
-            ViewBag.Employees = employee.Count();
-            return View(await _userService.GetAll());
+            if (_vm == null)
+            {
+                return RedirectToRoute(new { controller = "User", action = "Login" });
+            }else if (_vm.RoleId == 2)
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+
+            }
+            var employee = await _userService.GetAll();
+            ViewBag.Employees = employee.Where(e=>e.RoleId != _vm.RoleId).Count();
+            return View(await _userService.GetAllByEnterprise(_vm.Id));
         }
     }
 }

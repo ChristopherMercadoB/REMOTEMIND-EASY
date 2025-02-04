@@ -14,8 +14,10 @@ namespace REMOTEMIND_EASY.Core.Domain.Entities
         public string Username { get; set; }
         public string Password { get; set; }
         public int RoleId { get; set; }
-        public bool TestDone { get; set; } = false;
+        public int TestDone { get; set; }
+        public int? EnterpriseId { get; set; }
         public Role Role { get; set; }
         public List<Result> Results { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

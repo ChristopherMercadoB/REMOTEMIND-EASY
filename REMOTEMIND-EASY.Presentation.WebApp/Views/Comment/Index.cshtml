@@ -1,0 +1,39 @@
+﻿@using REMOTEMIND_EASY.Core.Application.ViewModels.Comment;
+@model List<CommentViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Columna de comentarios -->
+        <div class="col-md-8 offset-md-2">
+            <h3 class="text-center mb-4">Comentarios</h3>
+            <div class="list-group">
+
+            <!-- Lista de comentarios -->
+            @if(Model == null || Model.Count == 0){
+                <h1>No hay comentarios aun</h1>
+            }else{
+                @foreach(var item in Model){
+                        <!-- Comentario 1 -->
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@item.UserName</h5>
+                                <small>@item.Date</small>
+                            </div>
+                            <p class="mb-1">@item.Text</p>
+                            <spam class="@(item.Sentiment ? "text-success" : "text-danger")">@(item.Sentiment ? "Positivo" : "Negativo")</spam>
+                        </div>
+                }
+                   
+            }
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div>
+
+

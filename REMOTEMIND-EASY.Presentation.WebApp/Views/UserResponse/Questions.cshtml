@@ -28,8 +28,10 @@
 
                 <!-- Respuesta -->
                 <select class="form-select" asp-for="@Model[i].ResponseId" asp-items="@(new SelectList(Model.FirstOrDefault()?.Responses, "Id", "Name"))">
-                    <option value="">--Seleccione--</option>
+                    <option >--Seleccione--</option>
                 </select>
+                <span asp-validation-for="@Model[i].ResponseId" class="text-danger"></span>
+
             </div>
         }
 
